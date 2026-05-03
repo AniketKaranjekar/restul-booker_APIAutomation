@@ -1,0 +1,84 @@
+2026-05-03 14:18:39 INFO  api.test.BookingTests - ===== Test Data Setup Started =====
+2026-05-03 14:18:39 INFO  api.test.BookingTests - Test Data: api.payload.Booking@1c628f6a
+2026-05-03 14:18:39 INFO  api.test.BookingTests - ===== Test Data Setup Completed =====
+2026-05-03 14:18:39 INFO  api.test.BookingTests - ===== Creating Booking =====
+2026-05-03 14:18:42 INFO  api.test.BookingTests - Response Status Code: 200
+2026-05-03 14:18:42 INFO  api.test.BookingTests - Booking created successfully with ID: 4256
+2026-05-03 14:18:42 INFO  api.test.BookingTests - ===== Fetching Booking with ID: 4256 =====
+2026-05-03 14:18:43 INFO  api.test.BookingTests - Response Status Code: 200
+2026-05-03 14:18:43 INFO  api.test.BookingTests - Booking details validated successfully
+2026-05-03 14:18:43 INFO  api.test.BookingTests - ===== Updating Booking ID: 4256 =====
+2026-05-03 14:18:45 INFO  api.test.BookingTests - Auth token generated
+2026-05-03 14:18:45 INFO  api.test.BookingTests - Updated Data -> Firstname: Rey, Lastname: Schneider
+2026-05-03 14:18:46 INFO  api.test.BookingTests - Response Status Code: 200
+2026-05-03 14:18:46 INFO  api.test.BookingTests - Booking updated successfully
+2026-05-03 14:18:46 INFO  api.test.BookingTests - ===== Deleting Booking ID: 4256 =====
+2026-05-03 14:18:47 INFO  api.test.BookingTests - Auth token generated for delete
+2026-05-03 14:18:49 INFO  api.test.BookingTests - Response Status Code: 201
+2026-05-03 14:18:49 INFO  api.test.BookingTests - Booking deleted successfully
+2026-05-03 14:18:49 INFO  api.test.BookingTests - ===== Verifying Deletion for Booking ID: 4256 =====
+2026-05-03 14:18:50 INFO  api.test.BookingTests - Response Status Code: 404
+2026-05-03 14:18:50 INFO  api.test.BookingTests - Booking deletion verified successfully
+2026-05-03 14:18:50 INFO  api.test.BookingDataDrivenTests - ===== Test Suite Setup Started =====
+2026-05-03 14:18:51 INFO  api.test.BookingDataDrivenTests - Auth token generated successfully
+2026-05-03 14:18:51 INFO  api.test.BookingDataDrivenTests - ===== Test Suite Setup Completed =====
+2026-05-03 14:18:52 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------
+2026-05-03 14:18:52 INFO  api.test.BookingDataDrivenTests - Starting Test with Data -> John Doe | Price: 500 | Deposit: true | Needs: Breakfast | UpdateName: JohnUpdated
+2026-05-03 14:18:52 INFO  api.test.BookingDataDrivenTests - Payload created
+2026-05-03 14:18:52 INFO  api.test.BookingDataDrivenTests - Sending CREATE booking request
+2026-05-03 14:18:53 INFO  api.test.BookingDataDrivenTests - Create Response Code: 200
+2026-05-03 14:18:53 INFO  api.test.BookingDataDrivenTests - Booking created with ID: 4355
+2026-05-03 14:18:53 INFO  api.test.BookingDataDrivenTests - Fetching booking with ID: 4355
+2026-05-03 14:18:54 INFO  api.test.BookingDataDrivenTests - Get Response Code: 200
+2026-05-03 14:18:54 INFO  api.test.BookingDataDrivenTests - GET validation passed
+2026-05-03 14:18:54 INFO  api.test.BookingDataDrivenTests - Updating booking ID: 4355
+2026-05-03 14:18:56 INFO  api.test.BookingDataDrivenTests - Update Response Code: 200
+2026-05-03 14:18:56 INFO  api.test.BookingDataDrivenTests - Update successful
+2026-05-03 14:18:56 INFO  api.test.BookingDataDrivenTests - Deleting booking ID: 4355
+2026-05-03 14:18:57 INFO  api.test.BookingDataDrivenTests - Delete Response Code: 201
+2026-05-03 14:18:57 INFO  api.test.BookingDataDrivenTests - Delete successful
+2026-05-03 14:18:57 INFO  api.test.BookingDataDrivenTests - Verifying deletion for booking ID: 4355
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Verify Response Code: 404
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Deletion verified successfully
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Test Completed for Booking ID: 4355
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Starting Test with Data -> Alice Smith | Price: 700 | Deposit: false | Needs: Lunch | UpdateName: AliceUpdated
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Payload created
+2026-05-03 14:18:58 INFO  api.test.BookingDataDrivenTests - Sending CREATE booking request
+2026-05-03 14:18:59 INFO  api.test.BookingDataDrivenTests - Create Response Code: 200
+2026-05-03 14:18:59 INFO  api.test.BookingDataDrivenTests - Booking created with ID: 4409
+2026-05-03 14:18:59 INFO  api.test.BookingDataDrivenTests - Fetching booking with ID: 4409
+2026-05-03 14:19:01 INFO  api.test.BookingDataDrivenTests - Get Response Code: 200
+2026-05-03 14:19:01 INFO  api.test.BookingDataDrivenTests - GET validation passed
+2026-05-03 14:19:01 INFO  api.test.BookingDataDrivenTests - Updating booking ID: 4409
+2026-05-03 14:19:02 INFO  api.test.BookingDataDrivenTests - Update Response Code: 200
+2026-05-03 14:19:02 INFO  api.test.BookingDataDrivenTests - Update successful
+2026-05-03 14:19:02 INFO  api.test.BookingDataDrivenTests - Deleting booking ID: 4409
+2026-05-03 14:19:03 INFO  api.test.BookingDataDrivenTests - Delete Response Code: 201
+2026-05-03 14:19:03 INFO  api.test.BookingDataDrivenTests - Delete successful
+2026-05-03 14:19:03 INFO  api.test.BookingDataDrivenTests - Verifying deletion for booking ID: 4409
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Verify Response Code: 404
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Deletion verified successfully
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Test Completed for Booking ID: 4409
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Starting Test with Data -> Bob Taylor | Price: 300 | Deposit: true | Needs: Dinner | UpdateName: BobUpdated
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Payload created
+2026-05-03 14:19:05 INFO  api.test.BookingDataDrivenTests - Sending CREATE booking request
+2026-05-03 14:19:06 INFO  api.test.BookingDataDrivenTests - Create Response Code: 200
+2026-05-03 14:19:06 INFO  api.test.BookingDataDrivenTests - Booking created with ID: 4471
+2026-05-03 14:19:06 INFO  api.test.BookingDataDrivenTests - Fetching booking with ID: 4471
+2026-05-03 14:19:07 INFO  api.test.BookingDataDrivenTests - Get Response Code: 200
+2026-05-03 14:19:07 INFO  api.test.BookingDataDrivenTests - GET validation passed
+2026-05-03 14:19:07 INFO  api.test.BookingDataDrivenTests - Updating booking ID: 4471
+2026-05-03 14:19:09 INFO  api.test.BookingDataDrivenTests - Update Response Code: 200
+2026-05-03 14:19:09 INFO  api.test.BookingDataDrivenTests - Update successful
+2026-05-03 14:19:09 INFO  api.test.BookingDataDrivenTests - Deleting booking ID: 4471
+2026-05-03 14:19:10 INFO  api.test.BookingDataDrivenTests - Delete Response Code: 201
+2026-05-03 14:19:10 INFO  api.test.BookingDataDrivenTests - Delete successful
+2026-05-03 14:19:10 INFO  api.test.BookingDataDrivenTests - Verifying deletion for booking ID: 4471
+2026-05-03 14:19:11 INFO  api.test.BookingDataDrivenTests - Verify Response Code: 404
+2026-05-03 14:19:11 INFO  api.test.BookingDataDrivenTests - Deletion verified successfully
+2026-05-03 14:19:11 INFO  api.test.BookingDataDrivenTests - Test Completed for Booking ID: 4471
+2026-05-03 14:19:11 INFO  api.test.BookingDataDrivenTests - --------------------------------------------------

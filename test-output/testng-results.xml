@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-05-03T14:18:39 IST" name="Suite" finished-at="2026-05-03T14:19:11 IST" duration-ms="32494">
+    <groups>
+    </groups>
+    <test started-at="2026-05-03T14:18:39 IST" name="Test" finished-at="2026-05-03T14:19:11 IST" duration-ms="32494">
+      <class name="api.test.BookingDataDrivenTests">
+        <test-method is-config="true" signature="setup()[pri:0, instance:api.test.BookingDataDrivenTests@edf4f36]" started-at="2026-05-03T14:18:50 IST" name="setup" finished-at="2026-05-03T14:18:51 IST" duration-ms="1353" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testEndToEndFlowFromExcel(java.lang.String,java.lang.String,int,boolean,java.lang.String,java.lang.String)[pri:0, instance:api.test.BookingDataDrivenTests@edf4f36]" started-at="2026-05-03T14:18:52 IST" name="testEndToEndFlowFromExcel" data-provider="excelData" finished-at="2026-05-03T14:18:58 IST" duration-ms="6389" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[John]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Doe]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[500]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[true]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Breakfast]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[JohnUpdated]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEndToEndFlowFromExcel -->
+        <test-method signature="testEndToEndFlowFromExcel(java.lang.String,java.lang.String,int,boolean,java.lang.String,java.lang.String)[pri:0, instance:api.test.BookingDataDrivenTests@edf4f36]" started-at="2026-05-03T14:18:58 IST" name="testEndToEndFlowFromExcel" data-provider="excelData" finished-at="2026-05-03T14:19:05 IST" duration-ms="6530" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Alice]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Smith]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[700]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Lunch]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[AliceUpdated]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEndToEndFlowFromExcel -->
+        <test-method signature="testEndToEndFlowFromExcel(java.lang.String,java.lang.String,int,boolean,java.lang.String,java.lang.String)[pri:0, instance:api.test.BookingDataDrivenTests@edf4f36]" started-at="2026-05-03T14:19:05 IST" name="testEndToEndFlowFromExcel" data-provider="excelData" finished-at="2026-05-03T14:19:11 IST" duration-ms="6615" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Bob]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Taylor]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[300]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[true]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[Dinner]]>
+              </value>
+            </param>
+            <param index="5">
+              <value>
+                <![CDATA[BobUpdated]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEndToEndFlowFromExcel -->
+      </class> <!-- api.test.BookingDataDrivenTests -->
+      <class name="api.test.BookingTests">
+        <test-method is-config="true" signature="setupData()[pri:0, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:39 IST" name="setupData" finished-at="2026-05-03T14:18:39 IST" duration-ms="138" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupData -->
+        <test-method signature="testCreateBooking()[pri:1, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:39 IST" name="testCreateBooking" finished-at="2026-05-03T14:18:42 IST" duration-ms="3020" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCreateBooking -->
+        <test-method signature="testGetBooking()[pri:2, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:42 IST" name="testGetBooking" finished-at="2026-05-03T14:18:43 IST" duration-ms="1341" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetBooking -->
+        <test-method signature="testUpdateBooking()[pri:3, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:43 IST" name="testUpdateBooking" finished-at="2026-05-03T14:18:46 IST" duration-ms="2650" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUpdateBooking -->
+        <test-method signature="testDeleteBooking()[pri:4, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:46 IST" name="testDeleteBooking" finished-at="2026-05-03T14:18:49 IST" duration-ms="2647" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDeleteBooking -->
+        <test-method signature="testVerifyDeletedBooking()[pri:5, instance:api.test.BookingTests@3956b302]" started-at="2026-05-03T14:18:49 IST" name="testVerifyDeletedBooking" finished-at="2026-05-03T14:18:50 IST" duration-ms="1311" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testVerifyDeletedBooking -->
+      </class> <!-- api.test.BookingTests -->
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
+</testng-results>
