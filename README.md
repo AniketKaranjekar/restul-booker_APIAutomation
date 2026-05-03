@@ -128,8 +128,6 @@ target/ExtentReports.html
 ---
 
 ## Author
-Aniket
-QA Engineer | API Automation
 
 Aniket
 QA Engineer | API Automation
