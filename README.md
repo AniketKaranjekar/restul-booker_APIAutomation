@@ -1,10 +1,10 @@
-# OpenMRS API Automation Framework
+# Restful Booker API Automation Framework
 
 ## Overview
 
-This project is a Java-based API automation framework designed for testing OpenMRS APIs. OpenMRS is a real-world healthcare system, making this framework closer to enterprise-level API testing.
+This project is a Java-based API automation framework built using Rest Assured and TestNG. It covers end-to-end testing of booking APIs including Create, Read, Update, and Delete operations.
 
-It demonstrates handling of authentication, session management, and complex payload validations.
+The framework demonstrates real-world QA practices such as data-driven testing, authentication handling, logging, reporting, and CI integration.
 
 ---
 
@@ -16,18 +16,20 @@ It demonstrates handling of authentication, session management, and complex payl
 * Build Tool: Maven
 * Reporting: Extent Reports
 * Logging: Log4j2
+* Test Data: Excel (Apache POI)
 * CI/CD: GitHub Actions
 
 ---
 
 ## Features
 
-* Real-world API automation (healthcare domain)
-* Session-based authentication
-* Complex payload handling
-* Scalable framework design
-* Logging and reporting
-* CI-ready setup
+* End-to-End API testing (CRUD)
+* Data-driven testing using Excel
+* Token-based authentication
+* Logging with Log4j2
+* Extent HTML reports
+* CI execution support
+* Clean layered architecture
 
 ---
 
@@ -41,16 +43,27 @@ src
  │   │   ├── api.payload
  │   │   ├── api.test
  │   │   └── api.utilities
+ │   └── resources
+ │       └── BookingData.xlsx
 ```
 
 ---
 
-## Key Functionalities
+## Base URL
 
-* Authentication and session handling
-* API validation with real-world scenarios
-* Request and response verification
-* Reusable API methods
+```
+https://restful-booker.herokuapp.com
+```
+
+---
+
+## API Coverage
+
+* POST /auth
+* POST /booking
+* GET /booking/{id}
+* PUT /booking/{id}
+* DELETE /booking/{id}
 
 ---
 
@@ -65,14 +78,25 @@ mvn clean test
 Run specific test:
 
 ```
-mvn test -Dtest=OpenMRSTests
+mvn test -Dtest=BookingTests
+```
+
+---
+
+## Data Driven Testing
+
+* Test data stored in Excel
+* Location:
+
+```
+src/test/resources/BookingData.xlsx
 ```
 
 ---
 
 ## Reporting
 
-Extent Report available at:
+Extent Report generated at:
 
 ```
 target/ExtentReports.html
@@ -82,23 +106,24 @@ target/ExtentReports.html
 
 ## Logging
 
-* Log4j2 integrated
-* Captures full API execution flow
+* Implemented using Log4j2
+* Logs include request, response, and execution flow
 
 ---
 
 ## CI/CD
 
-* GitHub Actions configured
-* Automated test execution on code push
+* GitHub Actions integrated
+* Runs tests automatically on push
 
 ---
 
-## Why This Project Matters
+## Future Improvements
 
-* Works with real enterprise-level APIs
-* Demonstrates handling of complex systems
-* Shows understanding beyond basic CRUD APIs
+* Environment-based execution
+* Parallel execution
+* JSON schema validation
+* Docker support
 
 ---
 
