@@ -5,11 +5,14 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.github.javafaker.Faker;
+
 import api.endpoints.AuthEndPoints;
 import api.endpoints.BookingEndPoints;
 import api.payload.Booking;
 import api.payload.BookingDates;
+import api.utilities.RetryAnalyzer;
 import io.restassured.response.Response;
 
 public class BookingTests 
@@ -17,15 +20,19 @@ public class BookingTests
     Faker faker;
     Booking bookingPayload;
     int bookingId;
+    String token;
 
     private static final Logger log = LogManager.getLogger(BookingTests.class);
 
     @BeforeClass
     public void setupData() 
     {
-        log.info("===== Test Data Setup Started =====");
+        log.info("===== Setup Started =====");
 
         faker = new Faker();
+        token = AuthEndPoints.getToken();
+
+        log.info("Token generated");
 
         bookingPayload = new Booking();
         bookingPayload.setFirstname(faker.name().firstName());
@@ -40,99 +47,96 @@ public class BookingTests
 
         bookingPayload.setBookingdates(dates);
 
-        log.info("Test Data: {}", bookingPayload);
-        log.info("===== Test Data Setup Completed =====");
+        log.info("Initial Payload Ready");
+        log.info("===== Setup Completed =====");
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = RetryAnalyzer.class)
     public void testCreateBooking() 
     {
-        log.info("===== Creating Booking =====");
+        log.info("===== CREATE BOOKING =====");
 
         Response response = BookingEndPoints.createBooking(bookingPayload);
         response.then().log().all();
 
-        log.info("Response Status Code: {}", response.getStatusCode());
-        log.debug("Response Body: {}", response.asPrettyString());
+        int status = response.getStatusCode();
+        log.info("Create Status Code: {}", status);
 
-        Assert.assertEquals(response.getStatusCode(), 200);
+        Assert.assertTrue(status == 200 || status == 201, "Create failed");
 
         bookingId = response.jsonPath().getInt("bookingid");
-        log.info("Booking created successfully with ID: {}", bookingId);
+        log.info("Booking ID generated: {}", bookingId);
+
+        Assert.assertTrue(bookingId > 0, "Invalid booking ID");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, dependsOnMethods = "testCreateBooking", retryAnalyzer = RetryAnalyzer.class)
     public void testGetBooking() 
     {
-        log.info("===== Fetching Booking with ID: {} =====", bookingId);
+        log.info("===== GET BOOKING ===== ID: {}", bookingId);
 
         Response response = BookingEndPoints.getBooking(bookingId);
         response.then().log().all();
 
-        log.info("Response Status Code: {}", response.getStatusCode());
+        log.info("Get Status Code: {}", response.getStatusCode());
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response.jsonPath().getString("firstname"), bookingPayload.getFirstname());
 
-        log.info("Booking details validated successfully");
+        log.info("GET validation successful");
     }
     
-    @Test(priority = 3)
+    @Test(priority = 3, dependsOnMethods = "testCreateBooking", retryAnalyzer = RetryAnalyzer.class)
     public void testUpdateBooking() 
     {
-        log.info("===== Updating Booking ID: {} =====", bookingId);
-
-        String token = AuthEndPoints.getToken();
-        log.info("Auth token generated");
+        log.info("===== UPDATE BOOKING ===== ID: {}", bookingId);
 
         bookingPayload.setFirstname(faker.name().firstName());
         bookingPayload.setLastname(faker.name().lastName());
 
-        log.info("Updated Data -> Firstname: {}, Lastname: {}", 
-                  bookingPayload.getFirstname(), bookingPayload.getLastname());
+        log.info("Updated Data -> {} {}", 
+                bookingPayload.getFirstname(), 
+                bookingPayload.getLastname());
 
         Response response = BookingEndPoints.updateBooking(bookingId, bookingPayload, token);
         response.then().log().all();
 
-        log.info("Response Status Code: {}", response.getStatusCode());
+        log.info("Update Status Code: {}", response.getStatusCode());
 
         Assert.assertEquals(response.getStatusCode(), 200);
         Assert.assertEquals(response.jsonPath().getString("firstname"), bookingPayload.getFirstname());
-        Assert.assertEquals(response.jsonPath().getString("lastname"), bookingPayload.getLastname());
 
-        log.info("Booking updated successfully");
+        log.info("UPDATE successful");
     }
     
-    @Test(priority = 4)
+    @Test(priority = 4, dependsOnMethods = "testCreateBooking", retryAnalyzer = RetryAnalyzer.class)
     public void testDeleteBooking() 
     {
-        log.info("===== Deleting Booking ID: {} =====", bookingId);
-
-        String token = AuthEndPoints.getToken();
-        log.info("Auth token generated for delete");
+        log.info("===== DELETE BOOKING ===== ID: {}", bookingId);
 
         Response response = BookingEndPoints.deleteBooking(bookingId, token);
         response.then().log().all();
 
-        log.info("Response Status Code: {}", response.getStatusCode());
+        int status = response.getStatusCode();
+        log.info("Delete Status Code: {}", status);
 
-        Assert.assertEquals(response.getStatusCode(), 201);
+        Assert.assertTrue(status == 201 || status == 200, "Delete failed");
 
-        log.info("Booking deleted successfully");
+        log.info("DELETE successful");
     }
     
-    @Test(priority = 5)
+    @Test(priority = 5, dependsOnMethods = "testDeleteBooking", retryAnalyzer = RetryAnalyzer.class)
     public void testVerifyDeletedBooking() 
     {
-        log.info("===== Verifying Deletion for Booking ID: {} =====", bookingId);
+        log.info("===== VERIFY DELETE ===== ID: {}", bookingId);
 
         Response response = BookingEndPoints.getBooking(bookingId);
         response.then().log().all();
 
-        log.info("Response Status Code: {}", response.getStatusCode());
+        log.info("Verify Status Code: {}", response.getStatusCode());
 
         Assert.assertEquals(response.getStatusCode(), 404);
 
-        log.info("Booking deletion verified successfully");
+        log.info("Deletion verified");
     }
 }

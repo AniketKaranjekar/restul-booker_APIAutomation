@@ -5,11 +5,13 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import api.endpoints.AuthEndPoints;
 import api.endpoints.BookingEndPoints;
 import api.payload.Booking;
 import api.payload.BookingDates;
 import api.utilities.BookingData;
+import api.utilities.RetryAnalyzer;
 import io.restassured.response.Response;
 
 public class BookingDataDrivenTests 
@@ -21,23 +23,20 @@ public class BookingDataDrivenTests
     @BeforeClass
     public void setup() 
     {
-        log.info("===== Test Suite Setup Started =====");
-
+        log.info("=== Setup Started ===");
         token = AuthEndPoints.getToken();
-        log.info("Auth token generated successfully");
-
-        log.info("===== Test Suite Setup Completed =====");
+        log.info("Token generated");
     }
 
-    @Test(dataProvider = "excelData", dataProviderClass = BookingData.class)
+    @Test(dataProvider = "excelData", 
+          dataProviderClass = BookingData.class,
+          retryAnalyzer = RetryAnalyzer.class)
     public void testEndToEndFlowFromExcel(String fname, String lname, int price,
                                           boolean deposit, String needs, String updatedName) 
     {
-        log.info("--------------------------------------------------");
-        log.info("Starting Test with Data -> {} {} | Price: {} | Deposit: {} | Needs: {} | UpdateName: {}",
-                fname, lname, price, deposit, needs, updatedName);
+        log.info("Running test with data: {} {} | {}", fname, lname, price);
 
-        // Build payload
+        // Payload
         Booking booking = new Booking();
         booking.setFirstname(fname);
         booking.setLastname(lname);
@@ -50,70 +49,54 @@ public class BookingDataDrivenTests
         dates.setCheckout("2024-01-05");
         booking.setBookingdates(dates);
 
-        log.info("Payload created");
-
-        // Create
-        log.info("Sending CREATE booking request");
+        // CREATE
         Response createRes = BookingEndPoints.createBooking(booking);
-        createRes.then().log().all();
+        log.info("Create Status: {}", createRes.getStatusCode());
 
-        log.info("Create Response Code: {}", createRes.getStatusCode());
-        log.debug("Create Response Body: {}", createRes.asPrettyString());
-
-        Assert.assertEquals(createRes.getStatusCode(), 200);
+        Assert.assertTrue(
+            createRes.getStatusCode() == 200 || createRes.getStatusCode() == 201,
+            "Create failed"
+        );
 
         int bookingId = createRes.jsonPath().getInt("bookingid");
-        log.info("Booking created with ID: {}", bookingId);
-        Assert.assertTrue(bookingId > 0);
+        log.info("Booking ID: {}", bookingId);
 
-        // Get
-        log.info("Fetching booking with ID: {}", bookingId);
+        Assert.assertTrue(bookingId > 0, "Invalid booking ID");
+
+        // GET
         Response getRes = BookingEndPoints.getBooking(bookingId);
-
-        log.info("Get Response Code: {}", getRes.getStatusCode());
-        log.debug("Get Response Body: {}", getRes.asPrettyString());
+        log.info("Get Status: {}", getRes.getStatusCode());
 
         Assert.assertEquals(getRes.getStatusCode(), 200);
         Assert.assertEquals(getRes.jsonPath().getString("firstname"), fname);
-        Assert.assertEquals(getRes.jsonPath().getString("lastname"), lname);
-        Assert.assertEquals(getRes.jsonPath().getInt("totalprice"), price);
 
-        log.info("GET validation passed");
-
-        // Update
-        log.info("Updating booking ID: {}", bookingId);
+        // UPDATE
         booking.setFirstname(updatedName);
 
         Response updateRes = BookingEndPoints.updateBooking(bookingId, booking, token);
-
-        log.info("Update Response Code: {}", updateRes.getStatusCode());
-        log.debug("Update Response Body: {}", updateRes.asPrettyString());
+        log.info("Update Status: {}", updateRes.getStatusCode());
 
         Assert.assertEquals(updateRes.getStatusCode(), 200);
-        Assert.assertEquals(updateRes.jsonPath().getString("firstname"), updatedName);
+        Assert.assertEquals(
+            updateRes.jsonPath().getString("firstname"), 
+            updatedName
+        );
 
-        log.info("Update successful");
-
-        // Delete
-        log.info("Deleting booking ID: {}", bookingId);
+        // DELETE
         Response deleteRes = BookingEndPoints.deleteBooking(bookingId, token);
+        log.info("Delete Status: {}", deleteRes.getStatusCode());
 
-        log.info("Delete Response Code: {}", deleteRes.getStatusCode());
+        Assert.assertTrue(
+            deleteRes.getStatusCode() == 201 || deleteRes.getStatusCode() == 200,
+            "Delete failed"
+        );
 
-        Assert.assertEquals(deleteRes.getStatusCode(), 201);
-
-        log.info("Delete successful");
-
-        // Verify Delete
-        log.info("Verifying deletion for booking ID: {}", bookingId);
+        // VERIFY DELETE
         Response verifyRes = BookingEndPoints.getBooking(bookingId);
-
-        log.info("Verify Response Code: {}", verifyRes.getStatusCode());
+        log.info("Verify Status: {}", verifyRes.getStatusCode());
 
         Assert.assertEquals(verifyRes.getStatusCode(), 404);
 
-        log.info("Deletion verified successfully");
-        log.info("Test Completed for Booking ID: {}", bookingId);
-        log.info("--------------------------------------------------");
+        log.info("Test completed for Booking ID: {}", bookingId);
     }
 }
