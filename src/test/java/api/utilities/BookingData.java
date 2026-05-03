@@ -9,6 +9,6 @@ public class BookingData
 
         String path = System.getProperty("user.dir") + "/src/test/resources/BookingData.xlsx";
 
-        return ExcelUtils.getExcelData(path, "Sheet1");
+        return ExcelUtils.getExcelData("BookingData.xlsx", "Sheet1");
     }
 }

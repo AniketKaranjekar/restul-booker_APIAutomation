@@ -1,21 +1,30 @@
 package api.utilities;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtils 
 {
-    public static Object[][] getExcelData(String filePath, String sheetName) 
+    public static Object[][] getExcelData(String fileName, String sheetName) 
     {
         List<Object[]> dataList = new ArrayList<>();
 
         try 
         {
-            FileInputStream fis = new FileInputStream(filePath);
-            Workbook workbook = new XSSFWorkbook(fis);
+            InputStream is = ExcelUtils.class
+                    .getClassLoader()
+                    .getResourceAsStream(fileName);
+
+            if (is == null) 
+            {
+                throw new RuntimeException("Excel file not found in resources: " + fileName);
+            }
+
+            Workbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheet(sheetName);
 
             if (sheet == null) 
@@ -47,7 +56,6 @@ public class ExcelUtils
                     rowData[j] = value;
                 }
 
-                // Skip completely empty rows
                 if (!isRowEmpty) 
                 {
                     dataList.add(rowData);
@@ -55,8 +63,7 @@ public class ExcelUtils
             }
 
             workbook.close();
-            fis.close();
-
+            is.close();
         } 
         catch (Exception e) 
         {
@@ -69,7 +76,7 @@ public class ExcelUtils
             data[i] = dataList.get(i);
         }
 
-        // Debug print
+        // Debug logs
         System.out.println("===== Excel Data =====");
         for (Object[] row : data) 
         {
